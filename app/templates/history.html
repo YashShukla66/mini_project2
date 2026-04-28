@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<h2 class="mb-4">📜 Prediction History</h2>
+
+<input type="text" id="searchInput" class="form-control mb-3" placeholder="Search...">
+
+<div class="table-responsive">
+<table class="table table-hover table-striped table-bordered text-center">
+
+<thead class="table-dark">
+<tr>
+<th>#</th>
+<th>Math</th>
+<th>Coding</th>
+<th>IoT</th>
+<th>Result</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody id="tableBody">
+
+{% for p in predictions %}
+<tr>
+<td>{{ loop.index }}</td>
+<td>{{ p.math_score }}</td>
+<td>{{ p.coding_score }}</td>
+<td>{{ p.iot_score }}</td>
+<td>
+<span class="badge 
+{% if p.result == 'excellent' %} bg-success
+{% elif p.result == 'good' %} bg-primary
+{% elif p.result == 'average' %} bg-warning
+{% else %} bg-danger
+{% endif %}
+">
+{{ p.result }}
+</span>
+</td>
+<td>{{ p.created_at.strftime('%d %b %Y, %I:%M %p') }}</td>
+</tr>
+{% endfor %}
+
+</tbody>
+
+</table>
+</div>
+
+</div>
+
+<script>
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("keyup", function() {
+    let filter = searchInput.value.toLowerCase();
+    let rows = document.querySelectorAll("#tableBody tr");
+
+    rows.forEach(row => {
+        row.style.display = row.innerText.toLowerCase().includes(filter) ? "" : "none";
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5 text-center">
+
+<h1>Prediction Result</h1>
+
+<h2 class="mt-4">
+Student Performance:
+<span style="color:yellow; font-weight:bold;">
+{{ result }}
+</span>
+</h2>
+
+<br>
+
+<a href="/prediction" class="btn btn-light">Predict Again</a>
+
+</div>
+
+{% endblock %}

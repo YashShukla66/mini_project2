@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard-page">
+
+  <!-- Welcome Header -->
+  <div class="dash-header">
+    <div class="dash-header-text">
+      <h1 class="dash-title">
+        Welcome back, <span class="gradient-text">{{ current_user.username }}</span>
+      </h1>
+      <p class="dash-subtitle">
+        Your AI-powered command center for student performance analytics.
+      </p>
+    </div>
+  </div>
+
+  <!-- Dashboard Cards -->
+  <div class="dash-grid">
+
+    <!-- Prediction Card -->
+    <a href="/prediction" class="dash-card" id="dash-prediction">
+      <div class="dash-card-glow glow-purple"></div>
+      <div class="dash-card-content">
+        <div class="dash-card-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+          <i class="fas fa-brain"></i>
+        </div>
+        <h3>Prediction</h3>
+        <p>Predict student performance using our trained Random Forest ML model with 95% accuracy.</p>
+        <div class="dash-card-action">
+          <span>Start Prediction</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      <div class="dash-card-pattern">
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-ring"></div>
+      </div>
+    </a>
+
+    <!-- Analytics Card -->
+    <a href="/analytics" class="dash-card" id="dash-analytics">
+      <div class="dash-card-glow glow-cyan"></div>
+      <div class="dash-card-content">
+        <div class="dash-card-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Analytics</h3>
+        <p>Visualize trends, compare metrics, and uncover hidden patterns in student performance data.</p>
+        <div class="dash-card-action">
+          <span>View Analytics</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      <div class="dash-card-pattern">
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-ring"></div>
+      </div>
+    </a>
+
+    <!-- History Card -->
+    <a href="/history" class="dash-card" id="dash-history">
+      <div class="dash-card-glow glow-amber"></div>
+      <div class="dash-card-content">
+        <div class="dash-card-icon" style="background: linear-gradient(135deg, #f59e0b, #f97316);">
+          <i class="fas fa-clock-rotate-left"></i>
+        </div>
+        <h3>History</h3>
+        <p>Review all your past predictions, compare results over time, and track progress.</p>
+        <div class="dash-card-action">
+          <span>View History</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      <div class="dash-card-pattern">
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-ring"></div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Quick Stats Row -->
+  <div class="dash-stats-row">
+    <div class="dash-stat-mini">
+      <i class="fas fa-shield-check" style="color: #22c55e;"></i>
+      <span>OTP Verified Account</span>
+    </div>
+    <div class="dash-stat-mini">
+      <i class="fas fa-microchip" style="color: #6366f1;"></i>
+      <span>Random Forest Model</span>
+    </div>
+    <div class="dash-stat-mini">
+      <i class="fas fa-bolt" style="color: #f59e0b;"></i>
+      <span>Real-time Predictions</span>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

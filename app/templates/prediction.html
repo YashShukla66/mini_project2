@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<h2 class="text-center mb-4">Student Performance Prediction</h2>
+
+<form method="POST" action="/prediction">
+
+<div class="row">
+
+<div class="col-md-4">
+<label>Gender</label>
+<select name="gender" class="form-control">
+<option value="male">male</option>
+<option value="female">female</option>
+</select>
+</div>
+
+<div class="col-md-4">
+<label>Race</label>
+<select name="race" class="form-control">
+<option value="group A">group A</option>
+<option value="group B">group B</option>
+<option value="group C">group C</option>
+<option value="group D">group D</option>
+<option value="group E">group E</option>
+</select>
+</div>
+
+<div class="col-md-4">
+<label>Parental Education</label>
+<select name="parental_education" class="form-control">
+<option value="high school">high school</option>
+<option value="some college">some college</option>
+<option value="associate's degree">associate's degree</option>
+<option value="bachelor's degree">bachelor's degree</option>
+<option value="master's degree">master's degree</option>
+</select>
+</div>
+
+</div>
+
+<br>
+
+<div class="row">
+
+<div class="col-md-4">
+<label>Lunch</label>
+<select name="lunch" class="form-control">
+<option value="standard">standard</option>
+<option value="free/reduced">free/reduced</option>
+</select>
+</div>
+
+<div class="col-md-4">
+<label>Test Preparation</label>
+<select name="test_prep" class="form-control">
+<option value="none">none</option>
+<option value="completed">completed</option>
+</select>
+</div>
+
+</div>
+
+<br>
+
+<div class="row">
+
+<div class="col-md-4">
+<label>Math Score</label>
+<input type="number" name="math_score" class="form-control" required>
+</div>
+
+<div class="col-md-4">
+<label>Coding Score</label>
+<input type="number" name="coding_score" class="form-control" required>
+</div>
+
+<div class="col-md-4">
+<label>IoT Score</label>
+<input type="number" name="iot_score" class="form-control" required>
+</div>
+
+</div>
+
+<br>
+
+<button class="btn btn-primary btn-lg w-100">Predict Performance</button>
+
+</form>
+
+</div>
+
+{% endblock %}

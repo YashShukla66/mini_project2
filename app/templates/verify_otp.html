@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="auth-page">
+  <div class="otp-container">
+
+    <div class="otp-card">
+
+      <!-- OTP Icon -->
+      <div class="otp-icon-wrapper">
+        <div class="otp-icon-ring"></div>
+        <div class="otp-icon">
+          <i class="fas fa-envelope-open-text"></i>
+        </div>
+      </div>
+
+      <h2>Verify Your Email</h2>
+      <p class="otp-desc">
+        We've sent a 6-digit verification code to
+        <strong>{{ email }}</strong>.
+        Enter it below to
+        {% if purpose == 'login' %}sign in{% else %}complete your registration{% endif %}.
+      </p>
+
+      <!-- Flash Messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, msg in messages %}
+            <div class="auth-alert auth-alert-{{ category }}" id="otp-flash">
+              {% if category == 'error' %}
+                <i class="fas fa-circle-exclamation"></i>
+              {% elif category == 'info' %}
+                <i class="fas fa-circle-info"></i>
+              {% elif category == 'success' %}
+                <i class="fas fa-circle-check"></i>
+              {% endif %}
+              {{ msg }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST" action="/verify-otp" id="otp-form">
+
+        <div class="otp-input-group">
+          <input type="text" name="otp" id="otp-input"
+                 maxlength="6" pattern="[0-9]{6}"
+                 placeholder="● ● ● ● ● ●"
+                 autocomplete="one-time-code"
+                 required autofocus>
+        </div>
+
+        <button type="submit" class="auth-btn-primary" id="verify-btn">
+          <i class="fas fa-check-circle"></i> Verify & Continue
+        </button>
+
+      </form>
+
+      <div class="otp-resend">
+        <p>Didn't receive the code?</p>
+        <a href="/resend-otp" class="otp-resend-link" id="resend-otp-btn">
+          <i class="fas fa-rotate-right"></i> Resend OTP
+        </a>
+      </div>
+
+      <div class="otp-back">
+        <a href="{% if purpose == 'login' %}/login{% else %}/register{% endif %}">
+          <i class="fas fa-arrow-left"></i> Back to {% if purpose == 'login' %}Sign In{% else %}Sign Up{% endif %}
+        </a>
+      </div>
+
+      <!-- Dev Mode: Show OTP directly on screen when email is not configured -->
+      {% if dev_otp %}
+      <div class="otp-dev-display">
+        <div class="otp-dev-label">
+          <i class="fas fa-terminal"></i> Dev Mode — Email not configured
+        </div>
+        <div class="otp-dev-code">{{ dev_otp }}</div>
+        <p class="otp-dev-hint">Copy this code and paste above. Configure email in config.py for production.</p>
+      </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Auto-focus and format OTP input
+const otpInput = document.getElementById('otp-input');
+otpInput.addEventListener('input', function() {
+  this.value = this.value.replace(/[^0-9]/g, '');
+});
+</script>
+
+{% endblock %}

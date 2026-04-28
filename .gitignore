@@ -1,0 +1,27 @@
+# Virtual environments
+venv/
+env/
+shivam/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Database
+*.db
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Gemini
+.gemini/
+
+# Environment secrets
+.env

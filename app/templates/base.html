@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI-powered student performance analytics platform. Predict academic success using machine learning models and discover actionable insights.">
+
+  <title>AI Student Analytics — Predict. Analyze. Succeed.</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+  {% if current_user.is_authenticated %}
+
+  <!-- ====== AUTHENTICATED NAVBAR (hamburger + username) ====== -->
+  <nav class="topbar" id="mainNav">
+    <div class="topbar-inner">
+
+      <!-- Left: Hamburger Menu Button -->
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Open Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <!-- Center: Brand -->
+      <a class="topbar-brand" href="/dashboard">
+        <i class="fas fa-brain"></i> AI Student Analytics
+      </a>
+
+      <!-- Right: User name + avatar -->
+      <div class="topbar-user">
+        <div class="topbar-user-avatar">
+          {{ current_user.username[0]|upper }}
+        </div>
+        <span class="topbar-user-name">{{ current_user.username }}</span>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ====== SIDEBAR OVERLAY ====== -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- ====== SLIDE-OUT SIDEBAR ====== -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+      <div class="sidebar-user-avatar">
+        {{ current_user.username[0]|upper }}
+      </div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name">{{ current_user.username }}</div>
+        <div class="sidebar-user-email">{{ current_user.email }}</div>
+      </div>
+      <button class="sidebar-close" onclick="closeSidebar()">
+        <i class="fas fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <nav class="sidebar-nav">
+      <a href="/" class="sidebar-link">
+        <i class="fas fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="/dashboard" class="sidebar-link">
+        <i class="fas fa-grid-2"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="/prediction" class="sidebar-link">
+        <i class="fas fa-brain"></i>
+        <span>Prediction</span>
+      </a>
+      <a href="/analytics" class="sidebar-link">
+        <i class="fas fa-chart-mixed"></i>
+        <span>Analytics</span>
+      </a>
+      <a href="/history" class="sidebar-link">
+        <i class="fas fa-clock-rotate-left"></i>
+        <span>History</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-footer">
+      <a href="/logout" class="sidebar-link sidebar-link-danger">
+        <i class="fas fa-right-from-bracket"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+
+  </aside>
+
+  {% else %}
+
+  <!-- ====== PUBLIC NAVBAR (non-authenticated) ====== -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+
+      <a class="navbar-brand" href="/">
+        <i class="fas fa-brain"></i>&nbsp; AI Student Analytics
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+        <ul class="navbar-nav ms-auto align-items-center">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#features">Features</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#how-it-works">How It Works</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link nav-link-cta" href="/register">
+              <i class="fas fa-rocket"></i> Get Started
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+
+  {% endif %}
+
+
+  <!-- Interactive Background Canvas -->
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="{% block container_class %}container mt-5{% endblock %}" style="padding-top: 70px;">
+
+    {% block content %}
+
+    {% endblock %}
+
+  </div>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Sidebar + Scroll Reveal + Background Script -->
+  <script>
+    // Sidebar toggle
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('open');
+      document.getElementById('hamburgerBtn').classList.toggle('active');
+      document.body.classList.toggle('sidebar-open');
+    }
+
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+      document.getElementById('hamburgerBtn').classList.remove('active');
+      document.body.classList.remove('sidebar-open');
+    }
+
+    // Navbar shrink on scroll
+    window.addEventListener('scroll', function () {
+      const navbar = document.getElementById('mainNav');
+      if (navbar && window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else if (navbar) {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Scroll reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+    // --- INTERACTIVE BACKGROUND SCRIPT ---
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: null, y: null };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.x;
+      mouse.y = e.y;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.color = 'rgba(99, 102, 241, 0.15)';
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+
+        // Interaction with mouse
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 100) {
+          this.x -= dx / 50;
+          this.y -= dy / 50;
+        }
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      particles = [];
+      for (let i = 0; i < 100; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', init);
+    init();
+    animate();
+  </script>
+
+  {% block scripts %}{% endblock %}
+
+</body>
+
+</html>
