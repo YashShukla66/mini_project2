@@ -8,3 +8,4 @@ joblib
 requests
 flask-migrate
 python-dotenv
+gunicorn
