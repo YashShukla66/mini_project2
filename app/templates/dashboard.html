@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard-page">
+
+  <!-- Welcome Header -->
+  <div class="dash-header">
+    <div class="dash-header-text">
+      <h1 class="dash-title">
+        Welcome back, <span class="gradient-text">{{ current_user.username }}</span>
+      </h1>
+      <p class="dash-subtitle">
+        Your AI-powered command center for student performance analytics.
+      </p>
+    </div>
+  </div>
+
+  <!-- Dashboard Cards -->
+  <div class="dash-grid">
+
+    <!-- Prediction Card -->
+    <a href="/prediction" class="dash-card" id="dash-prediction">
+      <div class="dash-card-glow glow-purple"></div>
+      <div class="dash-card-content">
+        <div class="dash-card-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+          <i class="fas fa-brain"></i>
+        </div>
+        <h3>Prediction</h3>
+        <p>Predict student performance using our trained Random Forest ML model with 95% accuracy.</p>
+        <div class="dash-card-action">
+          <span>Start Prediction</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      <div class="dash-card-pattern">
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-ring"></div>
+      </div>
+    </a>
+
+    <!-- Analytics Card -->
+    <a href="/analytics" class="dash-card" id="dash-analytics">
+      <div class="dash-card-glow glow-cyan"></div>
+      <div class="dash-card-content">
+        <div class="dash-card-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Analytics</h3>
+        <p>Visualize trends, compare metrics, and uncover hidden patterns in student performance data.</p>
+        <div class="dash-card-action">
+          <span>View Analytics</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      <div class="dash-card-pattern">
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-ring"></div>
+      </div>
+    </a>
+
+    <!-- History Card -->
+    <a href="/history" class="dash-card" id="dash-history">
+      <div class="dash-card-glow glow-amber"></div>
+      <div class="dash-card-content">
+        <div class="dash-card-icon" style="background: linear-gradient(135deg, #f59e0b, #f97316);">
+          <i class="fas fa-clock-rotate-left"></i>
+        </div>
+        <h3>History</h3>
+        <p>Review all your past predictions, compare results over time, and track progress.</p>
+        <div class="dash-card-action">
+          <span>View History</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      <div class="dash-card-pattern">
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-dot"></div>
+        <div class="pattern-ring"></div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Animated Feature Ticker -->
+  <div class="dash-ticker-wrapper">
+    <div class="dash-ticker">
+      <div class="dash-ticker-track">
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-green"><i class="fas fa-shield-halved"></i></div>
+          <span>Secure OTP Auth</span>
+        </div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-purple"><i class="fas fa-microchip"></i></div>
+          <span>Random Forest AI</span>
+        </div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-amber"><i class="fas fa-bolt"></i></div>
+          <span>Real-time Predictions</span>
+        </div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-cyan"><i class="fas fa-robot"></i></div>
+          <span>Gemini AI Coach</span>
+        </div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-pink"><i class="fas fa-fire"></i></div>
+          <span>Daily Streak Tracking</span>
+        </div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-green"><i class="fas fa-chart-line"></i></div>
+          <span>Deep Analytics</span>
+        </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-green"><i class="fas fa-shield-halved"></i></div>
+          <span>Secure OTP Auth</span>
+        </div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-purple"><i class="fas fa-microchip"></i></div>
+          <span>Random Forest AI</span>
+        </div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-amber"><i class="fas fa-bolt"></i></div>
+          <span>Real-time Predictions</span>
+        </div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-cyan"><i class="fas fa-robot"></i></div>
+          <span>Gemini AI Coach</span>
+        </div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-pink"><i class="fas fa-fire"></i></div>
+          <span>Daily Streak Tracking</span>
+        </div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">
+          <div class="ticker-icon ticker-glow-green"><i class="fas fa-chart-line"></i></div>
+          <span>Deep Analytics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

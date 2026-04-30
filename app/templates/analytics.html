@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="analytics-wrapper">
+
+  <div class="row mb-5">
+    <div class="col-12 text-center">
+      <div class="icon-box" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <h2 class="gradient-text mb-2" style="background: linear-gradient(135deg, #06b6d4, #22d3ee); -webkit-background-clip: text;">Your Analytics</h2>
+      <p class="text-muted">Track your daily progress, analysis reports, and login streaks.</p>
+    </div>
+  </div>
+
+  <!-- Top Stats Row -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-3">
+      <div class="analytic-stat-card glow-amber">
+        <div class="stat-icon"><i class="fas fa-fire"></i></div>
+        <div class="stat-info">
+          <h3>{{ streak }} Days</h3>
+          <p>Login Streak (Daily Checkpoint)</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="analytic-stat-card glow-purple">
+        <div class="stat-icon"><i class="fas fa-brain"></i></div>
+        <div class="stat-info">
+          <h3>{{ total_predictions }}</h3>
+          <p>Total Predictions</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="analytic-stat-card glow-cyan">
+        <div class="stat-icon"><i class="fas fa-book-reader"></i></div>
+        <div class="stat-info">
+          <h3>{{ avg_study }} hrs</h3>
+          <p>Avg Study Time</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="analytic-stat-card glow-blue">
+        <div class="stat-icon"><i class="fas fa-bed"></i></div>
+        <div class="stat-info">
+          <h3>{{ avg_sleep }} hrs</h3>
+          <p>Avg Sleep Time</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Analysis Report -->
+    <div class="col-lg-6">
+      <div class="analytics-card">
+        <h4 class="card-title"><i class="fas fa-chart-pie text-primary"></i> Performance Distribution</h4>
+        <div class="distribution-bars">
+          
+          <div class="dist-item">
+            <div class="dist-label">
+              <span>Excellent</span>
+              <span>{{ excellent_count }}</span>
+            </div>
+            <div class="dist-bar-bg">
+              <div class="dist-bar fill-success" style="width: {{ (excellent_count / total_predictions * 100) if total_predictions else 0 }}%"></div>
+            </div>
+          </div>
+
+          <div class="dist-item">
+            <div class="dist-label">
+              <span>Good</span>
+              <span>{{ good_count }}</span>
+            </div>
+            <div class="dist-bar-bg">
+              <div class="dist-bar fill-primary" style="width: {{ (good_count / total_predictions * 100) if total_predictions else 0 }}%"></div>
+            </div>
+          </div>
+
+          <div class="dist-item">
+            <div class="dist-label">
+              <span>Nice</span>
+              <span>{{ nice_count }}</span>
+            </div>
+            <div class="dist-bar-bg">
+              <div class="dist-bar fill-info" style="width: {{ (nice_count / total_predictions * 100) if total_predictions else 0 }}%"></div>
+            </div>
+          </div>
+
+          <div class="dist-item">
+            <div class="dist-label">
+              <span>Decent</span>
+              <span>{{ decent_count }}</span>
+            </div>
+            <div class="dist-bar-bg">
+              <div class="dist-bar fill-warning" style="width: {{ (decent_count / total_predictions * 100) if total_predictions else 0 }}%"></div>
+            </div>
+          </div>
+
+          <div class="dist-item">
+            <div class="dist-label">
+              <span>Just Pass</span>
+              <span>{{ pass_count }}</span>
+            </div>
+            <div class="dist-bar-bg">
+              <div class="dist-bar fill-secondary" style="width: {{ (pass_count / total_predictions * 100) if total_predictions else 0 }}%; background: #6c757d;"></div>
+            </div>
+          </div>
+
+          <div class="dist-item">
+            <div class="dist-label">
+              <span>Worst</span>
+              <span>{{ worst_count }}</span>
+            </div>
+            <div class="dist-bar-bg">
+              <div class="dist-bar fill-danger" style="width: {{ (worst_count / total_predictions * 100) if total_predictions else 0 }}%"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Progress Report -->
+    <div class="col-lg-6">
+      <div class="analytics-card timeline-card">
+        <h4 class="card-title"><i class="fas fa-calendar-check text-info"></i> Daily Progress Report</h4>
+        
+        <div class="timeline">
+          {% if daily_progress %}
+            {% for date, preds in daily_progress.items() %}
+            <div class="timeline-item">
+              <div class="timeline-date">{{ date }}</div>
+              <div class="timeline-content">
+                <p><strong>{{ preds|length }}</strong> predictions made today.</p>
+                <div class="timeline-badges">
+                  {% for p in preds[:3] %}
+                    <span class="badge 
+                      {% if p.result == 'Excellent' %}bg-success
+                      {% elif p.result == 'Good' %}bg-primary
+                      {% elif p.result == 'Nice' %}bg-info
+                      {% elif p.result == 'Decent' %}bg-warning
+                      {% elif p.result == 'Just Pass' %}bg-secondary
+                      {% else %}bg-danger{% endif %}">
+                      {{ p.result }}
+                    </span>
+                  {% endfor %}
+                  {% if preds|length > 3 %}
+                    <span class="badge bg-secondary">+{{ preds|length - 3 }} more</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          {% else %}
+            <p class="text-muted text-center mt-4">No prediction history available yet. Head over to the prediction page to start!</p>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.analytics-wrapper {
+  position: relative;
+  z-index: 1;
+  padding: 20px 0;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.icon-box {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
+}
+
+.analytic-stat-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.analytic-stat-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.glow-amber:hover { box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2); }
+.glow-purple:hover { box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2); }
+.glow-cyan:hover { box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2); }
+.glow-blue:hover { box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2); }
+
+.stat-icon {
+  font-size: 2rem;
+  background: var(--bg-secondary);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--text-primary);
+}
+
+.glow-amber .stat-icon { color: #f59e0b; }
+.glow-purple .stat-icon { color: #8b5cf6; }
+.glow-cyan .stat-icon { color: #06b6d4; }
+.glow-blue .stat-icon { color: #3b82f6; }
+
+.stat-info h3 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 5px;
+  color: var(--text-primary);
+}
+
+.stat-info p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Analytics Cards */
+.analytics-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 30px;
+  height: 100%;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Distribution Bars */
+.distribution-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dist-item {
+  width: 100%;
+}
+
+.dist-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.dist-bar-bg {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dist-bar {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1s ease-out;
+}
+
+.fill-success { background: linear-gradient(90deg, #10b981, #34d399); }
+.fill-primary { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.fill-warning { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.fill-danger { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+/* Timeline for Daily Progress */
+.timeline-card {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Custom Scrollbar for Timeline */
+.timeline-card::-webkit-scrollbar { width: 6px; }
+.timeline-card::-webkit-scrollbar-track { background: transparent; }
+.timeline-card::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+.timeline {
+  position: relative;
+  padding-left: 20px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%; width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 25px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 5px; left: -24px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent-tertiary);
+  box-shadow: 0 0 10px var(--accent-tertiary);
+}
+
+.timeline-date {
+  font-size: 0.85rem;
+  color: var(--accent-tertiary);
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.timeline-content p {
+  margin: 0 0 8px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.timeline-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timeline-badges .badge {
+  padding: 6px 10px;
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+{% endblock %}

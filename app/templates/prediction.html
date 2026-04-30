@@ -1,0 +1,391 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="prediction-wrapper">
+  <!-- CSS Background Animation Orbs -->
+  <div class="pred-orb pred-orb-1"></div>
+  <div class="pred-orb pred-orb-2"></div>
+  <div class="pred-orb pred-orb-3"></div>
+
+  <div class="prediction-card">
+    <div class="card-header text-center">
+      <div class="icon-box">
+        <i class="fas fa-wand-magic-sparkles"></i>
+      </div>
+      <h2 class="gradient-text mb-2">Predict Performance</h2>
+      <p class="text-muted">Enter student details below to generate an AI-powered prediction.</p>
+    </div>
+
+    <form method="POST" action="/prediction" class="premium-form">
+      <div class="row g-4">
+        <!-- Gender -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-venus-mars"></i> Gender</label>
+            <select name="gender" class="premium-input">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            <div class="input-glow"></div>
+          </div>
+        </div>
+        
+        <!-- Sleep Hours -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-bed"></i> Sleep Hours</label>
+            <input type="number" name="sleep_hours" class="premium-input" placeholder="e.g. 7.5" step="0.1" required min="0" max="24">
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- Doom Scrolling Time -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-mobile-screen-button"></i> Doom Scrolling (hrs)</label>
+            <input type="number" name="doom_scrolling_time" class="premium-input" placeholder="e.g. 2.5" step="0.1" required min="0" max="24">
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- Productive Screen Time -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-laptop"></i> Productive Screen (hrs)</label>
+            <input type="number" name="productive_screen_time" class="premium-input" placeholder="e.g. 4.0" step="0.1" required min="0" max="24">
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- Study Hours -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-book-reader"></i> Study Hours</label>
+            <input type="number" name="study_hours" class="premium-input" placeholder="e.g. 3.0" step="0.1" required min="0" max="24">
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- Medical Issue -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-notes-medical"></i> Medical Issue</label>
+            <select name="medical_issue" class="premium-input">
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+            </select>
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- Drug Addiction -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-pills"></i> Drug Addiction</label>
+            <select name="drug_addiction" class="premium-input">
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+            </select>
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- Math Score -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-calculator"></i> Math Score</label>
+            <input type="number" name="math_score" class="premium-input" placeholder="0 - 100" required min="0" max="100">
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- Physics Score -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-atom"></i> Physics Score</label>
+            <input type="number" name="physics_score" class="premium-input" placeholder="0 - 100" required min="0" max="100">
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- Chemistry Score -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-flask"></i> Chemistry Score</label>
+            <input type="number" name="chemistry_score" class="premium-input" placeholder="0 - 100" required min="0" max="100">
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- Biology Score -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-dna"></i> Biology Score</label>
+            <input type="number" name="biology_score" class="premium-input" placeholder="0 - 100" required min="0" max="100">
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- English Score -->
+        <div class="col-md-4">
+          <div class="input-group-custom">
+            <label><i class="fas fa-language"></i> English Score</label>
+            <input type="number" name="english_score" class="premium-input" placeholder="0 - 100" required min="0" max="100">
+            <div class="input-glow"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5">
+        <button class="btn-predict">
+          <span class="btn-bg"></span>
+          <span class="btn-text">Generate AI Prediction</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+/* Prediction Wrapper & CSS Background Animation */
+.prediction-wrapper {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  z-index: 1;
+}
+
+.pred-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: -1;
+  opacity: 0.6;
+  animation: floatOrb 10s infinite ease-in-out alternate;
+}
+
+.pred-orb-1 {
+  width: 300px;
+  height: 300px;
+  background: var(--accent-primary);
+  top: 10%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.pred-orb-2 {
+  width: 250px;
+  height: 250px;
+  background: var(--accent-tertiary);
+  bottom: 10%;
+  right: 15%;
+  animation-delay: -3s;
+}
+
+.pred-orb-3 {
+  width: 200px;
+  height: 200px;
+  background: var(--accent-secondary);
+  top: 40%;
+  right: 35%;
+  animation-delay: -5s;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, -40px) scale(1.2); }
+}
+
+/* Glass Card */
+.prediction-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 50px;
+  width: 100%;
+  max-width: 900px;
+  box-shadow: var(--shadow-lg);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.prediction-card .card-header {
+  margin-bottom: 40px;
+}
+
+.icon-box {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  background: var(--accent-gradient);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+  box-shadow: var(--shadow-glow);
+}
+
+.gradient-text {
+  font-family: var(--font-display);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+/* Custom Input Groups */
+.input-group-custom {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group-custom label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+
+.input-group-custom label i {
+  color: var(--accent-primary);
+}
+
+.premium-input {
+  width: 100%;
+  background: rgba(10, 14, 26, 0.6);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Input Hover Animation */
+.premium-input:hover {
+  transform: translateY(-2px);
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15);
+  background: rgba(17, 24, 39, 0.8);
+}
+
+/* Input Focus Animation */
+.premium-input:focus {
+  transform: translateY(-4px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.25);
+  background: rgba(17, 24, 39, 1);
+}
+
+.input-group-custom:hover label {
+  color: var(--text-primary);
+}
+
+/* Animated Glow underneath inputs */
+.input-glow {
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 90%;
+  height: 1px;
+  background: var(--accent-gradient);
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: scaleX(0.5);
+}
+
+.premium-input:focus ~ .input-glow,
+.premium-input:hover ~ .input-glow {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Custom Select Arrow */
+select.premium-input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 16px 12px;
+}
+
+/* Fancy Predict Button */
+.btn-predict {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 16px 40px;
+  border-radius: var(--radius-lg);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.3s ease;
+}
+
+.btn-predict:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.btn-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent-gradient);
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-predict:hover .btn-bg {
+  opacity: 0.9;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
+}
+
+.btn-text, .btn-predict i {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-predict i {
+  transition: transform 0.3s ease;
+}
+
+.btn-predict:hover i {
+  transform: translateX(5px);
+}
+
+/* Entry Animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .prediction-card {
+    padding: 30px 20px;
+  }
+}
+</style>
+{% endblock %}

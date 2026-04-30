@@ -1,0 +1,10 @@
+flask
+flask-sqlalchemy
+flask-login
+authlib
+pandas
+scikit-learn
+joblib
+requests
+flask-migrate
+python-dotenv

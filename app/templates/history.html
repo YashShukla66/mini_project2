@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="history-wrapper">
+
+  <div class="row mb-5">
+    <div class="col-12 text-center">
+      <div class="icon-box" style="background: linear-gradient(135deg, #f59e0b, #f97316);">
+        <i class="fas fa-clock-rotate-left"></i>
+      </div>
+      <h2 class="gradient-text mb-2" style="background: linear-gradient(135deg, #f59e0b, #f97316); -webkit-background-clip: text;">Prediction History</h2>
+      <p class="text-muted">Review all your past predictions, compare results over time, and track progress.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      
+      <div class="history-card">
+        
+        {% if predictions %}
+          <div class="table-responsive">
+            <table class="table custom-table">
+              <thead>
+                <tr>
+                  <th><i class="fas fa-calendar-day"></i> Date</th>
+                  <th><i class="fas fa-clock"></i> Time</th>
+                  <th><i class="fas fa-venus-mars"></i> Gender</th>
+                  <th><i class="fas fa-book-reader"></i> Avg Subj Score</th>
+                  <th><i class="fas fa-bed"></i> Sleep</th>
+                  <th><i class="fas fa-laptop-medical"></i> Conclusion</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for p in predictions %}
+                <tr>
+                  <td>
+                    <span class="history-date">{{ p.created_at.strftime('%b %d, %Y') }}</span>
+                  </td>
+                  <td>
+                    <span class="history-time">{{ p.created_at.strftime('%I:%M %p') }}</span>
+                  </td>
+                  <td>
+                    <span class="history-detail">{{ p.gender|capitalize }}</span>
+                  </td>
+                  <td>
+                    <span class="history-detail">
+                      <!-- Compute simple avg of the 5 subjects for display context -->
+                      {{ ((p.math_score + p.physics_score + p.chemistry_score + p.biology_score + p.english_score) / 5)|round(1) }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="history-detail">{{ p.sleep_hours }}h</span>
+                  </td>
+                  <td>
+                    <span class="badge 
+                      {% if p.result == 'Excellent' %}bg-success
+                      {% elif p.result == 'Good' %}bg-primary
+                      {% elif p.result == 'Nice' %}bg-info
+                      {% elif p.result == 'Decent' %}bg-warning
+                      {% elif p.result == 'Just Pass' %}bg-secondary
+                      {% else %}bg-danger{% endif %} badge-lg">
+                      {{ p.result }}
+                    </span>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="text-center empty-state py-5">
+            <div class="empty-icon"><i class="fas fa-folder-open"></i></div>
+            <h4>No History Found</h4>
+            <p class="text-muted">You haven't made any predictions yet. Head over to the prediction page to get started!</p>
+            <a href="/prediction" class="btn-primary-custom mt-3">Start Prediction <i class="fas fa-arrow-right"></i></a>
+          </div>
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.history-wrapper {
+  position: relative;
+  z-index: 1;
+  padding: 20px 0;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.icon-box {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
+}
+
+/* History Card */
+.history-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 30px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+/* Custom Table */
+.custom-table {
+  color: var(--text-primary);
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.custom-table thead th {
+  border-bottom: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+}
+
+.custom-table tbody tr {
+  background: rgba(17, 24, 39, 0.6);
+  transition: all 0.3s ease;
+}
+
+.custom-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: scale(1.01);
+  box-shadow: var(--shadow-sm);
+}
+
+.custom-table tbody td {
+  border-top: 1px solid var(--border-color) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding: 18px 20px;
+  vertical-align: middle;
+}
+
+.custom-table tbody td:first-child {
+  border-left: 1px solid var(--border-color) !important;
+  border-top-left-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+}
+
+.custom-table tbody td:last-child {
+  border-right: 1px solid var(--border-color) !important;
+  border-top-right-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
+/* Cell typography */
+.history-date {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.history-time {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-family: monospace;
+}
+
+.history-detail {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.badge-lg {
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 40px 20px;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .history-card {
+    padding: 15px;
+  }
+  .custom-table tbody td {
+    padding: 12px 10px;
+  }
+}
+</style>
+{% endblock %}

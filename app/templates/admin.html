@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<h2>🛠 Admin Panel</h2>
+
+<h4 class="mt-4">Users</h4>
+
+<table class="table">
+
+<tr>
+<th>ID</th>
+<th>Username</th>
+<th>Email</th>
+<th>Action</th>
+</tr>
+
+{% for u in users %}
+
+<tr>
+
+<td>{{u.id}}</td>
+<td>{{u.username}}</td>
+<td>{{u.email}}</td>
+
+<td>
+
+<a href="/delete_user/{{u.id}}" class="btn btn-danger btn-sm">
+
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+
+<h4 class="mt-5">Predictions</h4>
+
+<table class="table">
+
+<tr>
+
+<th>User</th>
+<th>Math</th>
+<th>Coding</th>
+<th>IoT</th>
+<th>Result</th>
+
+</tr>
+
+{% for p in predictions %}
+
+<tr>
+
+<td>{{p.user_id}}</td>
+<td>{{p.math_score}}</td>
+<td>{{p.coding_score}}</td>
+<td>{{p.iot_score}}</td>
+<td>{{p.result}}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}

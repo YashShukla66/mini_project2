@@ -1,0 +1,424 @@
+{% extends "base.html" %}
+
+{% block body_class %}landing-page{% endblock %}
+{% block container_class %}{% endblock %}
+
+{% block content %}
+
+<!-- ======== HERO SECTION ======== -->
+<section class="hero-section" id="hero">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <div class="col-lg-6">
+        <div class="hero-badge">
+          <i class="fas fa-bolt"></i>
+          <span>Powered by Machine Learning</span>
+        </div>
+
+        <h1 class="hero-title">
+          Predict Student<br>
+          <span class="gradient-text">Performance</span> with<br>
+          AI Precision
+        </h1>
+
+        <p class="hero-subtitle">
+          Leverage advanced machine learning models to forecast academic outcomes,
+          identify at-risk students, and unlock data-driven insights that transform education.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="/register" class="btn-primary-custom" id="hero-cta-start">
+            <i class="fas fa-rocket"></i> Start Free Analysis
+          </a>
+          <a href="#how-it-works" class="btn-secondary-custom" id="hero-cta-learn">
+            <i class="fas fa-play-circle"></i> See How It Works
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-number">95%</div>
+            <div class="hero-stat-label">Prediction Accuracy</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">10K+</div>
+            <div class="hero-stat-label">Students Analyzed</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">50+</div>
+            <div class="hero-stat-label">Institutions Trust Us</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Animated CSS Art (replaces the robot image) -->
+      <div class="col-lg-6">
+        <div class="hero-visual-wrapper">
+          <div class="hero-visual">
+            <!-- Animated floating orbs -->
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+
+            <!-- Central animated element -->
+            <div class="visual-center">
+              <div class="visual-ring ring-1"></div>
+              <div class="visual-ring ring-2"></div>
+              <div class="visual-ring ring-3"></div>
+              <div class="visual-core">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+            </div>
+
+            <!-- Data flow lines -->
+            <div class="data-particle p1"><i class="fas fa-chart-bar"></i></div>
+            <div class="data-particle p2"><i class="fas fa-brain"></i></div>
+            <div class="data-particle p3"><i class="fas fa-database"></i></div>
+            <div class="data-particle p4"><i class="fas fa-code"></i></div>
+            <div class="data-particle p5"><i class="fas fa-calculator"></i></div>
+            <div class="data-particle p6"><i class="fas fa-lightbulb"></i></div>
+
+            <!-- Floating cards -->
+            <div class="float-card card-1">
+              <div class="float-card-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="float-card-text">
+                <span class="float-card-val">95%</span>
+                <span class="float-card-lbl">Accuracy</span>
+              </div>
+            </div>
+
+            <div class="float-card card-2">
+              <div class="float-card-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="float-card-text">
+                <span class="float-card-val">10K+</span>
+                <span class="float-card-lbl">Students</span>
+              </div>
+            </div>
+
+            <div class="float-card card-3">
+              <div class="float-card-icon" style="background: linear-gradient(135deg, #f59e0b, #f97316);">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <div class="float-card-text">
+                <span class="float-card-val">&lt;1s</span>
+                <span class="float-card-lbl">Response</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ======== FEATURES SECTION ======== -->
+<section class="section features-section" id="features">
+  <div class="container">
+
+    <div class="section-header scroll-reveal">
+      <div class="section-label">
+        <i class="fas fa-star"></i> Features
+      </div>
+      <h2 class="section-title">Everything You Need to Understand Student Success</h2>
+      <p class="section-subtitle">
+        Our platform combines cutting-edge AI with intuitive design to give educators and students actionable intelligence.
+      </p>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-1">
+        <div class="feature-card" id="feature-prediction">
+          <div class="feature-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h4>AI Performance Prediction</h4>
+          <p>
+            Our Random Forest ML model analyzes multiple factors — demographics, test prep, and scores — to predict academic performance with remarkable accuracy.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-2">
+        <div class="feature-card" id="feature-dashboard">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h4>Interactive Dashboard</h4>
+          <p>
+            Visualize student data through rich, interactive charts and graphs. Track trends over time and drill down into specific performance metrics effortlessly.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-3">
+        <div class="feature-card" id="feature-analytics">
+          <div class="feature-icon">
+            <i class="fas fa-magnifying-glass-chart"></i>
+          </div>
+          <h4>Deep Analytics</h4>
+          <p>
+            Uncover hidden patterns in student data. Understand how variables like parental education, lunch programs, and test preparation impact outcomes.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-1">
+        <div class="feature-card" id="feature-otp">
+          <div class="feature-icon">
+            <i class="fas fa-shield-halved"></i>
+          </div>
+          <h4>OTP Email Verification</h4>
+          <p>
+            Every login and registration is secured with one-time password verification sent directly to your email, ensuring only authorized access.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-2">
+        <div class="feature-card" id="feature-google">
+          <div class="feature-icon">
+            <i class="fab fa-google"></i>
+          </div>
+          <h4>Google Sign-In</h4>
+          <p>
+            Sign up or log in instantly using your Google account. No passwords to remember — just one click and you're in.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 scroll-reveal delay-3">
+        <div class="feature-card" id="feature-history">
+          <div class="feature-icon">
+            <i class="fas fa-clock-rotate-left"></i>
+          </div>
+          <h4>Prediction History</h4>
+          <p>
+            Access complete logs of past analyses. Compare predictions across sessions and track how interventions impact student outcomes over time.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ======== HOW IT WORKS SECTION ======== -->
+<section class="section" id="how-it-works">
+  <div class="container">
+
+    <div class="section-header scroll-reveal">
+      <div class="section-label">
+        <i class="fas fa-route"></i> How It Works
+      </div>
+      <h2 class="section-title">Three Simple Steps to Smarter Education</h2>
+      <p class="section-subtitle">
+        From sign-up to actionable insights — get started in minutes, not days.
+      </p>
+    </div>
+
+    <div class="row">
+
+      <div class="col-lg-4 scroll-reveal delay-1">
+        <div class="step-card" id="step-1">
+          <div class="step-number">01</div>
+          <h4>Create Your Account</h4>
+          <p>Sign up with your email or Google account. Verify via OTP sent to your inbox — no credit card required.</p>
+          <span class="step-connector d-none d-lg-block">
+            <i class="fas fa-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-lg-4 scroll-reveal delay-2">
+        <div class="step-card" id="step-2">
+          <div class="step-number">02</div>
+          <h4>Enter Student Data</h4>
+          <p>Input academic scores, demographic information, and background factors through our clean, intuitive prediction form.</p>
+          <span class="step-connector d-none d-lg-block">
+            <i class="fas fa-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-lg-4 scroll-reveal delay-3">
+        <div class="step-card" id="step-3">
+          <div class="step-number">03</div>
+          <h4>Get AI Predictions</h4>
+          <p>Receive instant performance predictions backed by our machine learning model. Review results and take informed action.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ======== METRICS SECTION ======== -->
+<section class="section metrics-section" id="metrics">
+  <div class="container">
+
+    <div class="section-header scroll-reveal">
+      <div class="section-label">
+        <i class="fas fa-chart-bar"></i> By the Numbers
+      </div>
+      <h2 class="section-title">Trusted by Educators Worldwide</h2>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-lg-3 col-md-6 scroll-reveal delay-1">
+        <div class="metric-card" id="metric-accuracy">
+          <div class="metric-number">95%</div>
+          <div class="metric-label">Model Accuracy</div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 scroll-reveal delay-2">
+        <div class="metric-card" id="metric-students">
+          <div class="metric-number">10K+</div>
+          <div class="metric-label">Students Analyzed</div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 scroll-reveal delay-3">
+        <div class="metric-card" id="metric-predictions">
+          <div class="metric-number">50K+</div>
+          <div class="metric-label">Predictions Made</div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 scroll-reveal delay-4">
+        <div class="metric-card" id="metric-factors">
+          <div class="metric-number">8+</div>
+          <div class="metric-label">Input Factors Analyzed</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ======== USE CASES SECTION ======== -->
+<section class="section" id="use-cases">
+  <div class="container">
+
+    <div class="section-header scroll-reveal">
+      <div class="section-label">
+        <i class="fas fa-users"></i> Who It's For
+      </div>
+      <h2 class="section-title">Built for Everyone in Education</h2>
+      <p class="section-subtitle">
+        Whether you're a student, teacher, or administrator — our platform helps you make smarter decisions.
+      </p>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-lg-4 scroll-reveal delay-1">
+        <div class="usecase-card" id="usecase-students">
+          <div class="usecase-icon">🎓</div>
+          <h4>Students</h4>
+          <p>Understand your academic trajectory and identify areas of improvement before exams. Use predictions to focus your study efforts where they matter most.</p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 scroll-reveal delay-2">
+        <div class="usecase-card" id="usecase-educators">
+          <div class="usecase-icon">👨‍🏫</div>
+          <h4>Educators & Teachers</h4>
+          <p>Identify at-risk students early with predictive insights. Tailor your teaching strategies and interventions based on data, not guesswork.</p>
+        </div>
+      </div>
+
+      <div class="col-lg-4 scroll-reveal delay-3">
+        <div class="usecase-card" id="usecase-admins">
+          <div class="usecase-icon">🏛️</div>
+          <h4>Administrators</h4>
+          <p>Make data-driven policy decisions. Understand institutional trends, allocate resources effectively, and improve overall student success rates.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ======== CTA SECTION ======== -->
+<section class="cta-section" id="cta">
+  <div class="container">
+    <div class="cta-box scroll-reveal">
+      <h2>Ready to Transform Student Outcomes?</h2>
+      <p>Join thousands of educators using AI to make smarter, faster, data-driven decisions.</p>
+      <a href="/register" class="btn-primary-custom" id="cta-signup">
+        <i class="fas fa-rocket"></i> Create Free Account
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======== FOOTER ======== -->
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-4 col-md-6">
+        <div class="footer-brand">
+          <i class="fas fa-brain"></i> AI Student Analytics
+        </div>
+        <p class="footer-text">
+          Empowering education through artificial intelligence. Predict, analyze, and improve student performance with our ML-powered platform.
+        </p>
+      </div>
+
+      <div class="col-lg-2 col-md-6">
+        <div class="footer-heading">Platform</div>
+        <ul class="footer-links">
+          <li><a href="/login">Dashboard</a></li>
+          <li><a href="/login">Prediction</a></li>
+          <li><a href="/login">Analytics</a></li>
+          <li><a href="/register">Sign Up</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-2 col-md-6">
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#use-cases">Use Cases</a></li>
+          <li><a href="#metrics">Metrics</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="footer-heading">About the Project</div>
+        <p class="footer-text" style="max-width: 100%;">
+          Built as a final year project demonstrating the power of AI in education. Uses a Random Forest Classifier trained on real student data to deliver accurate predictions.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      &copy; 2026 AI Student Analytics. Built with <i class="fas fa-heart" style="color: #ef4444;"></i> using Flask & Machine Learning.
+    </div>
+  </div>
+</footer>
+
+{% endblock %}
